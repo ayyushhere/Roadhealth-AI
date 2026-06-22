@@ -14,6 +14,10 @@ os.makedirs(
     exist_ok=True
 )
 
+@app.route('/health', methods=['GET'])
+def health():
+    return jsonify({"status": "online"})
+
 @app.route('/predict', methods=['POST'])
 def predict():
 

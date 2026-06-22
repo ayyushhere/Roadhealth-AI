@@ -1,7 +1,28 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Activity, ShieldCheck, Zap, ScanLine, Camera, BarChart3 } from "lucide-react";
 
 export default function Home() {
+  const [terminalText, setTerminalText] = useState("");
+  const fullText = "> Initializing System...\n> Loading YOLOv8 Weights...\n> Calibrating sensors...\n> Ready for analysis.";
+
+  useEffect(() => {
+    let currentText = "";
+    let currentIndex = 0;
+    
+    const interval = setInterval(() => {
+      if (currentIndex < fullText.length) {
+        currentText += fullText[currentIndex];
+        setTerminalText(currentText);
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 50);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="w-full h-full flex flex-col items-center pt-8 pb-20 animate-fade-in-up">
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(180px,auto)]">
@@ -49,14 +70,16 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Small Box 2: Tech Stack / Processing */}
-        <div className="bento-box p-8 flex flex-col justify-between group">
-          <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4">
-            <ScanLine className="w-5 h-5 text-blue-400" />
+        {/* Small Box 2: System Terminal */}
+        <div className="bento-box p-6 flex flex-col justify-start group bg-black/60 font-mono relative overflow-hidden border-zinc-800">
+          <div className="absolute top-0 left-0 w-full h-1 bg-zinc-800"></div>
+          <div className="flex items-center gap-2 mb-4 opacity-50">
+            <ScanLine className="w-4 h-4 text-zinc-400" />
+            <span className="text-xs text-zinc-400 font-semibold tracking-wider">SYSTEM.LOG</span>
           </div>
-          <div>
-            <h3 className="text-zinc-400 text-sm font-medium mb-1">Powered By</h3>
-            <p className="text-2xl font-bold text-zinc-100">YOLOv8 Vision Model</p>
+          <div className="text-emerald-400/90 text-xs leading-relaxed whitespace-pre-wrap">
+            {terminalText}
+            <span className="inline-block w-1.5 h-3 bg-emerald-400 animate-pulse ml-1 align-middle"></span>
           </div>
         </div>
 

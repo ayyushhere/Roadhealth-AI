@@ -8,10 +8,12 @@ import Register from "./pages/Register";
 import Upload from "./pages/Upload";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
+import CustomCursor from "./components/CustomCursor";
 
 function App() {
   return (
     <Router>
+      <CustomCursor />
       {/* Background Image */}
       <div 
         className="fixed inset-0 z-[-2] bg-cover bg-center bg-no-repeat bg-fixed"
