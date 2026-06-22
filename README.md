@@ -53,3 +53,6 @@ cd frontend
 npm install
 npm run dev
 ```
+
+### 4.Service activation timer
+-- Whether the ai-service is running or not.
